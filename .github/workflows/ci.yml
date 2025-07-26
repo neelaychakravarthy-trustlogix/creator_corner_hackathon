@@ -52,7 +52,7 @@ jobs:
           echo "version=$VERSION" >> "$GITHUB_OUTPUT"
 
       - name: Run semantic-release to publish GitHub release
-        if: ${{ github.ref == 'refs/heads/mcp' }}  # or your main branch
+        if: ${{ github.ref == 'refs/heads/main' }}  # or your main branch
         env:
           GITHUB_TOKEN: ${{ secrets.PERSONAL_GITHUB_TOKEN }}
         run: |
