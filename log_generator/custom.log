@@ -1,0 +1,18 @@
+1753566348471,"User login succeeded: {"user":"alice","status":"success"}",service-logs/app-container/instance-001
+1753566348471,"User login failed: {"user":"bob","error":"invalid credentials"}",service-logs/app-container/instance-001
+1753566725633,"User login succeeded: {"user":"alice","status":"success","timestamp":"2025-07-26T14:52:05.633578"}",service-logs/app-container/instance-001
+1753566725633,"User login failed: {"user":"bob","error":"invalid credentials","timestamp":"2025-07-26T14:52:05.633888"}",service-logs/app-container/instance-001
+1753566725633,"API request processed: {"endpoint":"/api/users","method":"GET","status":200,"response_time":150}",service-logs/app-container/instance-001
+1753566725633,"Database connection error: {"error":"connection timeout","retry_count":3,"database":"users_db"}",service-logs/app-container/instance-001
+1753566756036,"User login succeeded: {"user":"alice","status":"success","timestamp":"2025-07-26T14:52:36.036475"}",service-logs/app-container/instance-001
+1753566756036,"User login failed: {"user":"bob","error":"invalid credentials","timestamp":"2025-07-26T14:52:36.036684"}",service-logs/app-container/instance-001
+1753566756036,"API request processed: {"endpoint":"/api/users","method":"GET","status":200,"response_time":150}",service-logs/app-container/instance-001
+1753566756036,"Database connection error: {"error":"connection timeout","retry_count":3,"database":"users_db"}",service-logs/app-container/instance-001
+1753566948246,"User login succeeded: {"user":"alice","status":"success","timestamp":"2025-07-26T14:55:48.246609"}",service-logs/app-container/instance-001
+1753566948246,"User login failed: {"user":"bob","error":"invalid credentials","timestamp":"2025-07-26T14:55:48.246849"}",service-logs/app-container/instance-001
+1753566948246,"API request processed: {"endpoint":"/api/users","method":"GET","status":200,"response_time":150}",service-logs/app-container/instance-001
+1753566948246,"Database connection error: {"error":"connection timeout","retry_count":3,"database":"users_db"}",service-logs/app-container/instance-001
+{"timestamp": 1753567239947, "message": "User login succeeded: {\"user\":\"alice\",\"status\":\"success\",\"timestamp\":\"2025-07-26T15:00:39.947273\"}", "logStreamName": "service-logs/app-container/instance-001", "level": "INFO", "service": "log-generator", "source": "python", "host": "localhost"}
+{"timestamp": 1753567239947, "message": "User login failed: {\"user\":\"bob\",\"error\":\"invalid credentials\",\"timestamp\":\"2025-07-26T15:00:39.947500\"}", "logStreamName": "service-logs/app-container/instance-001", "level": "ERROR", "service": "log-generator", "source": "python", "host": "localhost"}
+{"timestamp": 1753567239947, "message": "API request processed: {\"endpoint\":\"/api/users\",\"method\":\"GET\",\"status\":200,\"response_time\":150}", "logStreamName": "service-logs/app-container/instance-001", "level": "INFO", "service": "log-generator", "source": "python", "host": "localhost"}
+{"timestamp": 1753567239947, "message": "Database connection error: {\"error\":\"connection timeout\",\"retry_count\":3,\"database\":\"users_db\"}", "logStreamName": "service-logs/app-container/instance-001", "level": "ERROR", "service": "log-generator", "source": "python", "host": "localhost"}

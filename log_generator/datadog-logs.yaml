@@ -1,0 +1,6 @@
+logs:
+  - type: file
+    path: /var/log/custom.log
+    service: log-generator
+    source: python
+    sourcecategory: application 

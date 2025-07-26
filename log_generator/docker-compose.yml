@@ -1,0 +1,29 @@
+version: "3.8"
+
+services:
+  datadog-agent:
+    image: gcr.io/datadoghq/agent:latest
+    container_name: datadog-agent
+    environment:
+      - DD_API_KEY=${DD_API_KEY}
+      - DD_SITE=datadoghq.com
+      - DD_LOGS_ENABLED=true
+      - DD_LOGS_CONFIG_CONTAINER_COLLECT_ALL=true
+      - DD_CONTAINER_EXCLUDE="name:datadog-agent"
+      - DD_APM_ENABLED=false
+      - DD_PROCESS_AGENT_ENABLED=false
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - /proc/:/host/proc/:ro
+      - /sys/fs/cgroup/:/host/sys/fs/cgroup:ro
+      - ./custom.log:/var/log/custom.log:ro
+      - ./datadog-agent.yaml:/etc/datadog-agent/datadog.yaml:ro
+    ports:
+      - "8126:8126"
+    restart: unless-stopped
+    networks:
+      - datadog-network
+
+networks:
+  datadog-network:
+    driver: bridge
