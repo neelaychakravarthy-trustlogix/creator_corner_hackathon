@@ -3,7 +3,7 @@ name: Build and Deploy to ECR
 on:
   push:
     branches:
-      - mcp  # or develop or your default branch
+      - main  # or develop or your default branch
 
 jobs:
   release:
