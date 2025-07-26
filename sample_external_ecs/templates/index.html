@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>External ECS Service</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .container {
+            background-color: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #333;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .button {
+            background-color: #007bff;
+            color: white;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            display: block;
+            margin: 20px auto;
+            transition: background-color 0.3s;
+        }
+        .button:hover {
+            background-color: #0056b3;
+        }
+        .button:disabled {
+            background-color: #6c757d;
+            cursor: not-allowed;
+        }
+        .result {
+            margin-top: 20px;
+            padding: 15px;
+            border-radius: 5px;
+            display: none;
+        }
+        .success {
+            background-color: #d4edda;
+            border: 1px solid #c3e6cb;
+            color: #155724;
+        }
+        .error {
+            background-color: #f8d7da;
+            border: 1px solid #f5c6cb;
+            color: #721c24;
+        }
+        .loading {
+            text-align: center;
+            color: #666;
+            font-style: italic;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>External ECS Service</h1>
+        <p>This service sends requests to the internal ECS service. Click the button below to send a GET request.</p>
+        
+        <button class="button" onclick="sendRequest()" id="requestButton">
+            Send Request to Internal Service
+        </button>
+        
+        <div id="result" class="result"></div>
+    </div>
+
+    <script>
+        function sendRequest() {
+            const button = document.getElementById('requestButton');
+            const resultDiv = document.getElementById('result');
+            
+            // Disable button and show loading
+            button.disabled = true;
+            button.textContent = 'Sending Request...';
+            resultDiv.style.display = 'block';
+            resultDiv.className = 'result loading';
+            resultDiv.textContent = 'Sending request to internal service...';
+            
+            fetch('/send-request')
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        resultDiv.className = 'result success';
+                        resultDiv.innerHTML = `
+                            <strong>Success!</strong><br>
+                            Status Code: ${data.status_code}<br>
+                            Response: ${data.response}
+                        `;
+                    } else {
+                        resultDiv.className = 'result error';
+                        resultDiv.innerHTML = `
+                            <strong>Error!</strong><br>
+                            ${data.error}
+                        `;
+                    }
+                })
+                .catch(error => {
+                    resultDiv.className = 'result error';
+                    resultDiv.innerHTML = `
+                        <strong>Error!</strong><br>
+                        Failed to send request: ${error.message}
+                    `;
+                })
+                .finally(() => {
+                    // Re-enable button
+                    button.disabled = false;
+                    button.textContent = 'Send Request to Internal Service';
+                });
+        }
+    </script>
+</body>
+</html> 

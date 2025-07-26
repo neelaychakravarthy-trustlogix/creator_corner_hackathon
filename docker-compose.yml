@@ -1,0 +1,39 @@
+version: '3.8'
+
+services:
+  internal-ecs:
+    build: ./sample_internal_ecs
+    ports:
+      - "5002:5002"
+    container_name: sample_internal_ecs
+    networks:
+      - ecs-network
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:5002/health"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+      start_period: 10s
+
+  external-ecs:
+    build: ./sample_external_ecs
+    ports:
+      - "5001:5001"
+    container_name: sample_external_ecs
+    environment:
+      - INTERNAL_SERVICE_URL=http://internal-ecs:5002
+    depends_on:
+      internal-ecs:
+        condition: service_healthy
+    networks:
+      - ecs-network
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:5001/health"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+      start_period: 10s
+
+networks:
+  ecs-network:
+    driver: bridge 
