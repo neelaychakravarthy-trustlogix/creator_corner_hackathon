@@ -1,6 +1,15 @@
 version: "3.8"
 
 services:
+  log-generator:
+    build: .
+    container_name: log-generator
+    volumes:
+      - ./custom.log:/app/custom.log
+    restart: unless-stopped
+    networks:
+      - datadog-network
+
   datadog-agent:
     image: gcr.io/datadoghq/agent:latest
     container_name: datadog-agent
@@ -23,6 +32,8 @@ services:
     restart: unless-stopped
     networks:
       - datadog-network
+    depends_on:
+      - log-generator
 
 networks:
   datadog-network:
